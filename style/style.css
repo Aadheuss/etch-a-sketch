@@ -1,0 +1,29 @@
+body {
+  font-family: "roboto", sans-serif;
+  background-color: #0e1318;
+}
+
+.container {
+  display: flex;
+}
+
+h1 {
+  margin: 18px 0 0 39px;
+  font-size: 60px;
+  color: #E2FEDA;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  margin: 39px 0 0 39px;
+  width: 450px;
+  height: 450px;
+  background-color: #8d39fa;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-row: repeat(16, 1fr);
+}
+
+.changed {
+  background-color: blue;
+}
