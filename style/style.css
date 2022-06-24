@@ -1,29 +1,134 @@
 body {
   font-family: "roboto", sans-serif;
-  background-color: #0e1318;
+  background-color: #1d1d2c;
+  margin: 0;
 }
 
 .container {
   display: flex;
 }
+.big-container,
+.right {
+  display: flex;
+  margin: 60px 0 60px 39px;;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  background-color: #e40c2b;
+}
 
 h1 {
-  margin: 18px 0 0 39px;
-  font-size: 60px;
-  color: #E2FEDA;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 900;
+  margin-left: 39px;
+  color: #1d1d2c;
+}
+
+button {
+  background-color: #f7f4e9;
+  border: 1px solid #f7f4e9;
+  color: #1d1d2c;
+  font-weight: 700;;
+  border-radius: 4px;
+  padding: 9px 18px;;
+  margin-right: 39px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 18px 36px;
+}
+
+.color {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.reset {
+  min-width: 80px;
+  margin-top: 18px;
+  border: 1px solid  #e40c2b;
+  background-color: #e40c2b;
+}
+
+.color button,
+.reset{
+  padding: 3px 18px;
+}
+
+
+.yellow{
+  background-color: #eba63f;
+  border-color: #1d1d2c
+}
+
+.blue {
+  background-color: #3cbcc3;
+  border-color: #1d1d2c
+}
+
+.green {
+    background-color: #438945;
+    border-color: #1d1d2c
+}
+
+.small-container {
+  background-color: #e40c2b;
+  padding: 45px;
+  border-radius: 8px;
+}
+
+.draw {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #1d1d2c;
+}
+
+.sketch {
+  margin: 0;
+  padding: 3px;
+  font-size: 24px;
+  color: #e40c2b;
+  font-weight: 500;
 }
 
 .grid {
-  display: grid;
-  margin: 39px 0 0 39px;
+  display: grid;;
   width: 450px;
   height: 450px;
-  background-color: #8d39fa;
+  background-color: #f7f4e9;
   grid-template-columns: repeat(16, 1fr);
-  grid-template-row: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
 }
 
 .changed {
-  background-color: blue;
+  background-color: #3cbcc3;
 }
+
+.right {
+  color: #e40c2b;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 39px;
+  background-color: #f7f4e9;
+  color:#e40c2b;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/*#8d39fa*/
