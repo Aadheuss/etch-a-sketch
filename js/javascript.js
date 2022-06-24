@@ -43,12 +43,12 @@ if (hourNow >= 18) {
 } else if (hourNow >= 6) {
   greeting = 'Good morning!';
 } else {
-  greeting = 'Good night!';
+  greeting = 'Aren\'t feeling sleepy yet?';
 }
 
-const showMe = document.querySelector('.right');
+const showMe = document.querySelector('#right');
 const welcome = document.createElement('div');
-welcome.textContent = greeting + ' Welcome to the draw zone!';
-showMe.appendChild(welcome);
+welcome.textContent = greeting;
+showMe.insertBefore(welcome, showMe.firstChild);
 
 

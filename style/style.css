@@ -6,6 +6,7 @@ body {
 
 .container {
   display: flex;
+  gap: 39px;
 }
 .big-container,
 .right {
@@ -20,11 +21,15 @@ body {
   background-color: #e40c2b;
 }
 
+.top-bar button {
+  margin-right: 36px;
+}
+
 h1 {
   font-size: 36px;
   font-weight: 900;
   margin-left: 39px;
-  color: #1d1d2c;
+  color: #464649;
 }
 
 button {
@@ -34,13 +39,12 @@ button {
   font-weight: 700;;
   border-radius: 4px;
   padding: 9px 18px;;
-  margin-right: 39px;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
-  margin: 18px 36px;
+  margin: 18px 0 18px 36px;
 }
 
 .color {
@@ -113,10 +117,32 @@ button {
   background-color: #3cbcc3;
 }
 
-.right {
-  color: #e40c2b;
-  font-size: 24px;
+#right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3cbcc3;
+  text-align: center;
+  font-size: 36px;
   font-weight: 700;
+  margin: 90px 39px 0 39px;
+}
+
+.welcome {
+  font-size: 28px;
+}
+.greeting {
+  display: flex;
+  padding: 18px 9px;
+  justify-content: center;
+  margin: 39px 0;
+  max-width: 100%;
+  height: 250px;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: italic;
+  border: 6px solid #3cbcc3;
+  border-radius: 8px;
 }
 
 .footer {
