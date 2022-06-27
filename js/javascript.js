@@ -78,7 +78,7 @@ if (hourNow >= 18) {
   greeting = 'Aren\'t feeling sleepy yet?';
 }
 
-const showMe = document.querySelector('#right');
+const showMe = document.querySelector('#right div');
 const welcome = document.createElement('div');
 welcome.textContent = greeting;
 showMe.insertBefore(welcome, showMe.firstChild);
