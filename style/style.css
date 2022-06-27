@@ -601,3 +601,9 @@ onward-->>>>*/
       font-size: 0.5rem;
     }
   }
+
+  @media only screen and (max-height: 1366px) and (orientation: portrait) {
+    .sketch {
+      font-size: 1.1rem;
+    }
+  }
