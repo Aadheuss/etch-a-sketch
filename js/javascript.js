@@ -1,34 +1,64 @@
 const gridContainer = document.querySelector('.grid');
+const bigContainer = document.querySelector('.big-container');
 const buttons = Array.from(document.querySelectorAll('.buttons button'));
+const slider = document.getElementById("myRange");
+const output = document.getElementById("output");
 let color = '#f7f4e9;';
 //select the grid container
-createGrid(16);
-//make 16 rows, and 16 column 
 
-function createGrid(num) {
-  num = num * num;
-  for (let i = 0; i <num ; i++) {
-    const grid = document.createElement('div');
-    grid.classList.add('square')
-    grid.style.border = '1px solid black';
-    gridContainer.appendChild(grid);
-//Create new div elements
-  };
+gridContainer.addEventListener('dragstart', (e) => {
+  e.preventDefault()
+})
+
+gridContainer.addEventListener('drop', (e) => {
+  e.preventDefault()
+})
+createGrid(16);
+
+output.innerHTML = slider.value + 'x' + slider.value; 
+// Display the default slider value
+//slider that will change the createGrid value
+slider.oninput = function() {
+  
+  output.innerHTML = this.value + 'x' + this.value;
+  createGrid(this.value);
+  console.log(grids);
+// Update the current slider value (each time you drag the slider handle)
 }
 
-const grids = Array.from(document.querySelectorAll('.square'));
+function createGrid(num) {
+  while (gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.lastChild);
+  }
+  for (let i = 0; i < num * num; i++) {
+    const grid = document.createElement('div');
+    grid.classList.add('square')
+    grid.style.border = '0.001px solid #ffffff';
+    gridContainer.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+    gridContainer.style.gridTemplateRows = `repeat(${num}, 1fr)`;
+    gridContainer.appendChild(grid);
+    };
+
+    const grids = Array.from(document.querySelectorAll('.square'));
   grids.forEach(box => box.addEventListener('mousedown', startColor));
 //if the user click it will fire up a function that will start the color change.
 
-function startColor() {
-  let start = grids.forEach(grid => grid.addEventListener('mousemove', changeColor));
-  grids.forEach(grid => grid.addEventListener('mouseup', () => {
-    grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
-  
+  function startColor() {
+    grids.forEach(grid => grid.addEventListener('mousemove', changeColor));
+    grids.forEach(grid => grid.addEventListener('mouseup', () => {
+      grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
 //start coloring when mouse is moving and stop when the mouse button is released.
-    })
-  );
+      })
+    )
+    bigContainer.addEventListener('mouseleave', () => {
+      grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
+      }
+    )
+
+  }
+//Create new div elements
 }
+
 function removeTransition(e) {
   if (e.propertyName !== 'transform') return;
   e.target.classList.remove('chosen');
@@ -60,9 +90,11 @@ function pickColor(e) {
 function changeColor(e) {
  
  e.target.style.backgroundColor = color;
+ e.target.style.borderColor = color;
 //change the color of individual grid div
 }
 
+//slider output value
 const today = new Date();
 const hourNow = today.getHours();
 let greeting;
