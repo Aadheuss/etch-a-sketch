@@ -554,6 +554,27 @@ onward-->>>>*/
       .big-container {
         gap: 0.25rem;
       }
+<<<<<<< HEAD
+=======
+  }
+  
+  @media only screen and (max-height: 300px) and (orientation: landscape) {
+    button {
+      font-size: 0.6rem;
+      border-radius: 4px;
+      width: 2.5rem;
+      padding: 0.1em 0.3em;
+      }
+  }
+
+  @media only screen and (max-height: 250px) {
+    button {
+      font-size: 0.5rem;
+      border-radius: 4px;
+      width: 2rem;
+      padding: 0.1em 0.3em;
+    }
+>>>>>>> e4736401eca173ef16e3684c82a3630877888330
   }
 
   @media only screen and (max-height: 500px) {
