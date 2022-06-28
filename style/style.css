@@ -182,6 +182,7 @@ button {
 
 .grid {
   display: grid;
+  touch-action: none;
   background-color: #f7f4e9;
 }
 

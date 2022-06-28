@@ -39,17 +39,27 @@ function createGrid(num) {
     gridContainer.appendChild(grid);
     };
 
-    const grids = Array.from(document.querySelectorAll('.square'));
-  grids.forEach(box => box.addEventListener('mousedown', startColor));
+  const grids = Array.from(document.querySelectorAll('.square'));
+
+  grids.forEach(grid => grid.addEventListener('mousedown', startColor));
+  grids.forEach(grid => grid.addEventListener('touchstart', startColor));
 //if the user click it will fire up a function that will start the color change.
 
   function startColor() {
     grids.forEach(grid => grid.addEventListener('mousemove', changeColor));
+    grids.forEach(grid => grid.addEventListener('touchmove', () => changeColor));
+//start coloring
     grids.forEach(grid => grid.addEventListener('mouseup', () => {
       grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
-//start coloring when mouse is moving and stop when the mouse button is released.
       })
     )
+    grids.forEach(grid => grid.addEventListener('touchend', () => {
+      grids.forEach(grid => grid.removeEventListener('touchmove', changeColor));
+//start coloring when mouse is moving and stop when the mouse button is released.
+//start coloring when the screen is touched and stop when touch ends.
+      })
+    )
+
     bigContainer.addEventListener('mouseleave', () => {
       grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
       }
