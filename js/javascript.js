@@ -22,7 +22,6 @@ slider.oninput = function() {
   
   output.innerHTML = this.value + 'x' + this.value;
   createGrid(this.value);
-  console.log(grids);
 // Update the current slider value (each time you drag the slider handle)
 }
 
@@ -42,12 +41,12 @@ function createGrid(num) {
   const grids = Array.from(document.querySelectorAll('.square'));
 
   grids.forEach(grid => grid.addEventListener('mousedown', startColor));
-  grids.forEach(grid => grid.addEventListener('touchstart', startColor));
+  grids.forEach(grid => grid.addEventListener('touchmove', startColor));
 //if the user click it will fire up a function that will start the color change.
 
   function startColor() {
     grids.forEach(grid => grid.addEventListener('mousemove', changeColor));
-    grids.forEach(grid => grid.addEventListener('touchmove', () => changeColor));
+    grids.forEach(grid => grid.addEventListener('touchmove', changeColor));
 //start coloring
     grids.forEach(grid => grid.addEventListener('mouseup', () => {
       grids.forEach(grid => grid.removeEventListener('mousemove', changeColor));
@@ -98,9 +97,19 @@ function pickColor(e) {
   }
 }
 function changeColor(e) {
- 
+ if (e.type === 'mousemove') {
  e.target.style.backgroundColor = color;
  e.target.style.borderColor = color;
+ }
+ else {
+  offsetX = e.touches[0].clientX;
+  offsetY = e.touches[0].clientY;
+  const realTarget = document.elementFromPoint(offsetX, offsetY);
+  if (realTarget.className === 'square') {
+    realTarget.style.backgroundColor = color;
+    realTarget.style.borderColor = color;
+  }
+}
 //change the color of individual grid div
 }
 
