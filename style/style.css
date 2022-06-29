@@ -103,24 +103,32 @@ button {
   display: flex;
   gap: 1rem;
 }
+
+.random {
+  border-color: #3cbcc3;
+  color: #3cbcc3;
+}
+
+.rainbow {
+border-color:  #eba63f;
+color:  #eba63f;
+}
+
+.opacity {
+  border-color: #438945;
+  color: #438945;
+}
+
 .reset {
-  border: 1px solid  #e40c2b;
-  background-color: #e40c2b;
+  border-color: #e40c2b;
+  color: #e40c2b;
 }
 
-.yellow{
-  background-color: #eba63f;
-  border-color: #1d1d2c;
-}
-
-.blue {
-  background-color: #3cbcc3;
-  border-color: #1d1d2c;
-}
-
-.green {
-    background-color: #438945;
-    border-color: #1d1d2c;
+.random,
+.reset,
+.rainbow,
+.opacity {
+  background-color: #1d1d2c;
 }
 
 @media only screen and (orientation: portrait) {
