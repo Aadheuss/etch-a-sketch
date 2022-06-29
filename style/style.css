@@ -131,6 +131,11 @@ color:  #eba63f;
   background-color: #1d1d2c;
 }
 
+.on {
+  border-color:#f7f4e9;
+  color: #f7f4e9;
+}
+
 @media only screen and (orientation: portrait) {
 .small-container {
   max-width: 90vw ;
@@ -193,6 +198,7 @@ color:  #eba63f;
   touch-action: none;
   background-color: #f7f4e9;
 }
+
 
 #output {
   color: #d3d3d3;

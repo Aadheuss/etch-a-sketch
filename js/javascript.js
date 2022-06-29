@@ -87,28 +87,60 @@ function pickColor(e) {
     resetBC.forEach(child => child.removeEventListener('mousemove', rainbowColor));
     resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
   }
+  if (targetColor === 'opacity on') {
+    resetBC.forEach(child => child.removeEventListener('mousemove', addOpacity));
+    resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
+    e.target.classList.remove('on');
+  }
+
   if (targetColor === 'random') {
     rainbowColor();
   } else if (targetColor === 'reset') {
     resetBC.forEach(child => {
       child.style.backgroundColor = '#f7f4e9';
       child.style.borderColor = '#ffffff'});
-    color = '#f7f4e9;';
+      color = '#f7f4e9;';
   } else if (targetColor === 'rainbow') {
     resetBC.forEach(child => child.addEventListener('mousemove', rainbowColor));
     resetBC.forEach(child => child.addEventListener('touchmove', rainbowColor));
-  }else {
+  } else if (targetColor === 'opacity') {
+    if (targetColor !== 'on') {
+      e.target.classList.add('on');
+      resetBC.forEach(child => child.addEventListener('mousemove', addOpacity));
+      resetBC.forEach(child => child.addEventListener('touchmove', addOpacity));
+    }
+  } else {
     color = color;
   }
 }
+ 
+function addOpacity(e) {
+  console.log(e.type);
+  if (e.type === 'mousemove') {
+    let opacity = Number(e.target.style.opacity);
+    if (opacity <= 0.9) {
+      e.target.style.opacity = opacity += 0.1;
+    }
+  } else {
+    offsetX = e.touches[0].clientX;
+    offsetY = e.touches[0].clientY;
+    const realTarget = document.elementFromPoint(offsetX, offsetY);
+    let opacity = Number(realTarget.style.opacity)
+    if (realTarget.className === 'square') {
+      if (opacity <= 0.9) {
+        realTarget.style.opacity = opacity += 0.1;
+      }
+    }
+  }
+}
 
-function rainbowColor() {
+function rainbowColor(e) {
   let r = Math.floor(Math.random() * 100) + '%';
   let g = Math.floor(Math.random() * 100) + '%';
   let b = Math.floor(Math.random() * 100) + '%';
   let rgb = [r, g, b].toString();
   color = `rgb(${rgb})`;
-  console.log(color);
+
 }
 
 function changeColor(e) {
