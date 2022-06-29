@@ -83,18 +83,32 @@ buttons.forEach(button => button.addEventListener('transitionend', removeTransit
 function pickColor(e) {
   let targetColor = e.target.className;
   let resetBC = Array.from(document.querySelectorAll('.square'));
-  if (targetColor === 'yellow') {
-    color = '#eba63f';
-  } else if (targetColor === 'green') {
-    color = '#438945';
-  } else if (targetColor === 'blue') {
-    color = '#3cbcc3'
+  if (targetColor !== 'rainbow') {
+    resetBC.forEach(child => child.removeEventListener('mousemove', rainbowColor));
+    resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
+  }
+  if (targetColor === 'random') {
+    rainbowColor();
   } else if (targetColor === 'reset') {
-    resetBC.forEach(child => child.style.backgroundColor = '#ffffff');
+    resetBC.forEach(child => {
+      child.style.backgroundColor = '#f7f4e9';
+      child.style.borderColor = '#ffffff'});
     color = '#f7f4e9;';
-  } else {
+  } else if (targetColor === 'rainbow') {
+    resetBC.forEach(child => child.addEventListener('mousemove', rainbowColor));
+    resetBC.forEach(child => child.addEventListener('touchmove', rainbowColor));
+  }else {
     color = color;
   }
+}
+
+function rainbowColor() {
+  let r = Math.floor(Math.random() * 100) + '%';
+  let g = Math.floor(Math.random() * 100) + '%';
+  let b = Math.floor(Math.random() * 100) + '%';
+  let rgb = [r, g, b].toString();
+  color = `rgb(${rgb})`;
+  console.log(color);
 }
 
 function changeColor(e) {
