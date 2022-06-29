@@ -82,7 +82,7 @@ buttons.forEach(button => button.addEventListener('transitionend', removeTransit
 
 function pickColor(e) {
   let targetColor = e.target.className;
-  console.log(color);
+  let resetBC = Array.from(document.querySelectorAll('.square'));
   if (targetColor === 'yellow') {
     color = '#eba63f';
   } else if (targetColor === 'green') {
@@ -90,12 +90,13 @@ function pickColor(e) {
   } else if (targetColor === 'blue') {
     color = '#3cbcc3'
   } else if (targetColor === 'reset') {
-    grids.forEach(grid => grid.style.backgroundColor = '#f7f4e9');
+    resetBC.forEach(child => child.style.backgroundColor = '#ffffff');
     color = '#f7f4e9;';
   } else {
     color = color;
   }
 }
+
 function changeColor(e) {
  if (e.type === 'mousemove') {
  e.target.style.backgroundColor = color;
