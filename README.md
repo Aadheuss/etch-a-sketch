@@ -1,4 +1,4 @@
 # etch-a-sketch
 
-this project is a a browser version of something between a sketchpad and an Etch-A-Sketch.
-I will be building this as a practice of DOM manipulation skills. for Odin project assignment.
+This project is  a browser version of something between a sketchpad and an Etch-A-Sketch.
+This is a test of my understanding OF DOM manipulation For Odin project assignment.
