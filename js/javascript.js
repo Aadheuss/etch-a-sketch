@@ -16,8 +16,9 @@ gridContainer.addEventListener('drop', (e) => {
 createGrid(16);
 // Display the default slider value
 //slider that will change the createGrid value
+output.innerHTML = 16 + 'x' + 16;
+console.log(this.value);
 slider.oninput = function() {
-  
   output.innerHTML = this.value + 'x' + this.value;
   createGrid(this.value);
 // Update the current slider value (each time you drag the slider handle)
@@ -87,7 +88,7 @@ function pickColor(e) {
     resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
   }
   if (targetColor === 'opacity on') {
-    resetBC.forEach(child => child.removeEventListener('mousemove', addOpacity));
+    resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
     resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
     e.target.classList.remove('on');
   }
@@ -103,7 +104,7 @@ function pickColor(e) {
   } else if (targetColor === 'reset') {
     const currentSize = Number(slider.value);
     createGrid(currentSize);
-    resetBC.forEach(child => child.removeEventListener('mousemove', addOpacity));
+    resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
     resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
     buttons[2].classList.remove('on');
   } else if (targetColor === 'rainbow') {
@@ -114,7 +115,7 @@ function pickColor(e) {
     resetBC.forEach(child => child.removeEventListener('touchmove', fullOpacity));
     if (targetColor !== 'on') {
       e.target.classList.add('on');
-      resetBC.forEach(child => child.addEventListener('mousemove', addOpacity));
+      resetBC.forEach(child => child.addEventListener('mouseenter', addOpacity));
       resetBC.forEach(child => child.addEventListener('touchmove', addOpacity));
     }
   } else {
@@ -123,7 +124,7 @@ function pickColor(e) {
 }
  
 function addOpacity(e) {
-  if (e.type === 'mousemove') {
+  if (e.type === 'mouseenter') {
     let opacity = Number(e.target.style.opacity);
     if (opacity <= 0.9) {
       e.target.style.opacity = opacity += 0.1;
