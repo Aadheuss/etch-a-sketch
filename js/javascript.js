@@ -14,8 +14,6 @@ gridContainer.addEventListener('drop', (e) => {
   e.preventDefault()
 })
 createGrid(16);
-
-output.innerHTML = slider.value + 'x' + slider.value; 
 // Display the default slider value
 //slider that will change the createGrid value
 slider.oninput = function() {
@@ -23,6 +21,7 @@ slider.oninput = function() {
   output.innerHTML = this.value + 'x' + this.value;
   createGrid(this.value);
 // Update the current slider value (each time you drag the slider handle)
+//slider output value
 }
 
 function createGrid(num) {
@@ -92,18 +91,27 @@ function pickColor(e) {
     resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
     e.target.classList.remove('on');
   }
+  
+  if (buttons[2].className !== 'opacity on' && targetColor !== 'opacity') {
+    resetBC.forEach(child => child.addEventListener('mousemove', fullOpacity));
+    resetBC.forEach(child => child.addEventListener('touchmove', fullOpacity));
+    console.log('I\'m running');
+  }
 
   if (targetColor === 'random') {
     rainbowColor();
   } else if (targetColor === 'reset') {
-    resetBC.forEach(child => {
-      child.style.backgroundColor = '#f7f4e9';
-      child.style.borderColor = '#ffffff'});
-      color = '#f7f4e9;';
+    const currentSize = Number(slider.value);
+    createGrid(currentSize);
+    resetBC.forEach(child => child.removeEventListener('mousemove', addOpacity));
+    resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
+    buttons[2].classList.remove('on');
   } else if (targetColor === 'rainbow') {
     resetBC.forEach(child => child.addEventListener('mousemove', rainbowColor));
     resetBC.forEach(child => child.addEventListener('touchmove', rainbowColor));
   } else if (targetColor === 'opacity') {
+    resetBC.forEach(child => child.removeEventListener('mousemove', fullOpacity));
+    resetBC.forEach(child => child.removeEventListener('touchmove', fullOpacity));
     if (targetColor !== 'on') {
       e.target.classList.add('on');
       resetBC.forEach(child => child.addEventListener('mousemove', addOpacity));
@@ -115,7 +123,6 @@ function pickColor(e) {
 }
  
 function addOpacity(e) {
-  console.log(e.type);
   if (e.type === 'mousemove') {
     let opacity = Number(e.target.style.opacity);
     if (opacity <= 0.9) {
@@ -143,6 +150,19 @@ function rainbowColor(e) {
 
 }
 
+function fullOpacity(e) {
+  if (e.type === 'mousemove') {
+    e.target.style.opacity = null;
+  } else {
+     offsetX = e.touches[0].clientX;
+     offsetY = e.touches[0].clientY;
+     const realTarget = document.elementFromPoint(offsetX, offsetY);
+     if (realTarget.className === 'square') {
+       realTarget.style.opacity = null;
+    }
+  }
+}
+
 function changeColor(e) {
  if (e.type === 'mousemove') {
  e.target.style.backgroundColor = color;
@@ -157,10 +177,10 @@ function changeColor(e) {
     realTarget.style.borderColor = color;
   }
 }
+
 //change the color of individual grid div
 }
 
-//slider output value
 const today = new Date();
 const hourNow = today.getHours();
 let greeting;
