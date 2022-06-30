@@ -704,14 +704,17 @@ onward-->>>>*/
   /* grid style selection starts here
   */
 
-  @media only screen and (max-width: 767px) {
-    .grid div {
-      border: 0.001px solid #ffffff;
-    }
+  .grid div {
+    border: 0.01px solid #ffffff;
   }
 
-  @media only screen and (min-width: 768px) and (orientation: landscape) {
+  @media only screen and (max-width: 400) {
     .grid div {
-      border: 0.01px solid #ffffff;
+      border: 0.005px solid #ffffff;
+    }
+  }
+  @media only screen and (min-height: 1366px) {
+    .grid div {
+      border: 1px solid #ffffff;
     }
   }
