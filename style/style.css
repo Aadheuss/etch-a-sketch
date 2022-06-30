@@ -700,3 +700,18 @@ onward-->>>>*/
       font-size: 1.1rem;
     }
   }
+
+  /* grid style selection starts here
+  */
+
+  @media only screen and (max-width: 767px) {
+    .grid div {
+      border: 0.001px solid #ffffff;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (orientation: landscape) {
+    .grid div {
+      border: 0.01px solid #ffffff;
+    }
+  }

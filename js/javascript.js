@@ -31,8 +31,7 @@ function createGrid(num) {
   }
   for (let i = 0; i < num * num; i++) {
     const grid = document.createElement('div');
-    grid.classList.add('square')
-    grid.style.border = '0.001px solid #ffffff';
+    grid.classList.add('square');
     gridContainer.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${num}, 1fr)`;
     gridContainer.appendChild(grid);
