@@ -118,19 +118,21 @@ function rainbowColor(e) {
 }
 
 function changeColor(e) {
-  let opacity = Number(e.target.style.opacity);
+
   if (e.type === 'mousemove') {
     e.target.style.backgroundColor = color;
     e.target.style.borderColor = color;
+    let opacity = Number(e.target.style.opacity);
     if (buttons[2].className === 'opacity on') {
       if (opacity <= 0.9) {
-      e.target.style.opacity = `${opacity += 0.1}`;
+        e.target.style.opacity = `${opacity += 0.1}`;
       }
     } else {e.target.style.opacity = null;}
   } else {
     offsetX = e.touches[0].clientX;
     offsetY = e.touches[0].clientY;
     const realTarget = document.elementFromPoint(offsetX, offsetY);
+    let opacity = Number(realTarget.style.opacity);
     if (realTarget.className === 'square') {
       realTarget.style.backgroundColor = color;
       realTarget.style.borderColor = color;
