@@ -15,10 +15,9 @@ gridContainer.addEventListener('drop', (e) => {
   e.preventDefault()
 })
 createGrid(input.value);
-output.innerText = input.value + 'x' + input.value;
 // Display the default slider value
 //slider that will change the createGrid value
-
+output.innerText = input.value + 'x' + input.value;
 slider.oninput = function() {
   output.innerText = this.value + 'x' + this.value;
   createGrid(this.value);
@@ -82,30 +81,21 @@ buttons.forEach(button => button.addEventListener('transitionend', removeTransit
 
 function pickColor(e) {
   let targetColor = e.target.className;
-  const btnCheck = buttons[2].className;
   let resetBC = Array.from(document.querySelectorAll('.square'));
-  console.log(btnCheck);  
 
   if (targetColor === 'random') {
     rainbowColor();
   } else if (targetColor === 'reset') {
-    const currentSize = Number(slider.value);
-    createGrid(currentSize);
+    createGrid(input.value);
     buttons[2].classList.remove('on');
   } else if (targetColor === 'rainbow') {
     resetBC.forEach(child => child.addEventListener('mousemove', rainbowColor));
     resetBC.forEach(child => child.addEventListener('touchmove', rainbowColor));
-  } else if (targetColor === 'opacity on') {
+  } else if (targetColor === 'opacity on' ) {
     e.target.classList.remove('on');
-    resetBC.forEach(child => child.addEventListener('mousedown', startFOpacity));
-    resetBC.forEach(child => child.addEventListener('touchstart', startFOpacity));
   } else if (targetColor === 'opacity') {
     if (targetColor !== 'on') {
       e.target.classList.add('on');  
-      resetBC.forEach(child => child.addEventListener('mousedown', startOpacity));
-      resetBC.forEach(child => child.addEventListener('touchstart', startOpacity));
-      resetBC.forEach(child => child.removeEventListener('mousedown', startFOpacity));
-      resetBC.forEach(child => child.removeEventListener('touchstart', startFOpacity));
     }
   } else {
     color = color;
@@ -116,72 +106,7 @@ function pickColor(e) {
     resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
   }
 }
-
-function startOpacity() {
-  let resetBC = Array.from(document.querySelectorAll('.square'));
-  resetBC.forEach(child => child.addEventListener('mouseenter', addOpacity));
-  resetBC.forEach(child => child.addEventListener('touchstart', addOpacity));
-  resetBC.forEach(child => child.addEventListener('mouseup', stopOpacity));
-  resetBC.forEach(child => child.addEventListener('touchend', stopOpacity));
-}
-//star opacity drawing
-
-function stopOpacity() {
-  let resetBC = Array.from(document.querySelectorAll('.square'));
-  resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
-  resetBC.forEach(child => child.removeEventListener('touchstart', addOpacity));
-}
-//stop opacity drawing
- 
-function addOpacity(e) {
-  if (e.type === 'mouseenter') {
-    let opacity = Number(e.target.style.opacity);
-    if (opacity <= 0.9) {
-      e.target.style.opacity = opacity += 0.1;
-    }
-  } else {
-    offsetX = e.touches[0].clientX;
-    offsetY = e.touches[0].clientY;
-    const realTarget = document.elementFromPoint(offsetX, offsetY);
-    let opacity = Number(realTarget.style.opacity)
-    if (realTarget.className === 'square') {
-      if (opacity <= 0.9) {
-        realTarget.style.opacity = opacity += 0.1;
-      }
-    }
-  }
-}
-//opacity start with 0 to 1
-
-function startFOpacity() {
-  let resetBC = Array.from(document.querySelectorAll('.square'));
-  resetBC.forEach(child => child.addEventListener('mousemove', fullOpacity));
-  resetBC.forEach(child => child.addEventListener('touchstart', fullOpacity));
-  resetBC.forEach(child => child.addEventListener('mouseup', stopFOpacity));
-  resetBC.forEach(child => child.addEventListener('touchend', stopFOpacity));
-}
-// start drawing in full opacity
-
-function stopFOpacity() {
-  let resetBC = Array.from(document.querySelectorAll('.square'));
-  resetBC.forEach(child => child.removeEventListener('mousemove', fullOpacity));
-  resetBC.forEach(child => child.removeEventListener('touchstart', fullOpacity));
-}
-//stop drawing in full opacity
-
-function fullOpacity(e) {
-  if (e.type === 'mousemove') {
-    e.target.style.opacity = null;
-  } else {
-     offsetX = e.touches[0].clientX;
-     offsetY = e.touches[0].clientY;
-     const realTarget = document.elementFromPoint(offsetX, offsetY);
-     if (realTarget.className === 'square') {
-       realTarget.style.opacity = null;
-    }
-  }
-}
-//the opacity value return to normal color
+//pick pen style
 
 function rainbowColor(e) {
   let r = Math.floor(Math.random() * 100) + '%';
@@ -193,22 +118,31 @@ function rainbowColor(e) {
 }
 
 function changeColor(e) {
- if (e.type === 'mousemove') {
- e.target.style.backgroundColor = color;
- e.target.style.borderColor = color;
- }
- else {
-  offsetX = e.touches[0].clientX;
-  offsetY = e.touches[0].clientY;
-  const realTarget = document.elementFromPoint(offsetX, offsetY);
-  if (realTarget.className === 'square') {
-    realTarget.style.backgroundColor = color;
-    realTarget.style.borderColor = color;
+  let opacity = Number(e.target.style.opacity);
+  if (e.type === 'mousemove') {
+    e.target.style.backgroundColor = color;
+    e.target.style.borderColor = color;
+    if (buttons[2].className === 'opacity on') {
+      if (opacity <= 0.9) {
+      e.target.style.opacity = `${opacity += 0.1}`;
+      }
+    } else {e.target.style.opacity = null;}
+  } else {
+    offsetX = e.touches[0].clientX;
+    offsetY = e.touches[0].clientY;
+    const realTarget = document.elementFromPoint(offsetX, offsetY);
+    if (realTarget.className === 'square') {
+      realTarget.style.backgroundColor = color;
+      realTarget.style.borderColor = color;
+      if (buttons[2].className === 'opacity on') {
+        if (opacity <= 0.9) {
+          realTarget.style.opacity = `${opacity += 0.1}`;
+        }
+      } else {realTarget.style.opacity = null;}
+    }
   }
 }
-
 //change the color of individual grid div
-}
 
 const today = new Date();
 const hourNow = today.getHours();
