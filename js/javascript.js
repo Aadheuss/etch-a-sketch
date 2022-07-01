@@ -3,6 +3,7 @@ const bigContainer = document.querySelector('.big-container');
 const buttons = Array.from(document.querySelectorAll('.buttons button'));
 const slider = document.getElementById("myRange");
 const output = document.getElementById("output");
+const input = document.querySelector('input');
 let color = '#f7f4e9;';
 //select the grid container
 
@@ -13,13 +14,13 @@ gridContainer.addEventListener('dragstart', (e) => {
 gridContainer.addEventListener('drop', (e) => {
   e.preventDefault()
 })
-createGrid(16);
+createGrid(input.value);
+output.innerText = input.value + 'x' + input.value;
 // Display the default slider value
 //slider that will change the createGrid value
-output.innerHTML = 16 + 'x' + 16;
-console.log(this.value);
+
 slider.oninput = function() {
-  output.innerHTML = this.value + 'x' + this.value;
+  output.innerText = this.value + 'x' + this.value;
   createGrid(this.value);
 // Update the current slider value (each time you drag the slider handle)
 //slider output value
@@ -81,46 +82,56 @@ buttons.forEach(button => button.addEventListener('transitionend', removeTransit
 
 function pickColor(e) {
   let targetColor = e.target.className;
+  const btnCheck = buttons[2].className;
   let resetBC = Array.from(document.querySelectorAll('.square'));
-  if (targetColor !== 'rainbow') {
-    resetBC.forEach(child => child.removeEventListener('mousemove', rainbowColor));
-    resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
-  }
-  if (targetColor === 'opacity on') {
-    resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
-    resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
-    e.target.classList.remove('on');
-  }
-  
-  if (buttons[2].className !== 'opacity on' && targetColor !== 'opacity') {
-    resetBC.forEach(child => child.addEventListener('mousemove', fullOpacity));
-    resetBC.forEach(child => child.addEventListener('touchmove', fullOpacity));
-    console.log('I\'m running');
-  }
+  console.log(btnCheck);  
 
   if (targetColor === 'random') {
     rainbowColor();
   } else if (targetColor === 'reset') {
     const currentSize = Number(slider.value);
     createGrid(currentSize);
-    resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
-    resetBC.forEach(child => child.removeEventListener('touchmove', addOpacity));
     buttons[2].classList.remove('on');
   } else if (targetColor === 'rainbow') {
     resetBC.forEach(child => child.addEventListener('mousemove', rainbowColor));
     resetBC.forEach(child => child.addEventListener('touchmove', rainbowColor));
+  } else if (targetColor === 'opacity on') {
+    e.target.classList.remove('on');
+    resetBC.forEach(child => child.addEventListener('mousedown', startFOpacity));
+    resetBC.forEach(child => child.addEventListener('touchstart', startFOpacity));
   } else if (targetColor === 'opacity') {
-    resetBC.forEach(child => child.removeEventListener('mousemove', fullOpacity));
-    resetBC.forEach(child => child.removeEventListener('touchmove', fullOpacity));
     if (targetColor !== 'on') {
-      e.target.classList.add('on');
-      resetBC.forEach(child => child.addEventListener('mouseenter', addOpacity));
-      resetBC.forEach(child => child.addEventListener('touchmove', addOpacity));
+      e.target.classList.add('on');  
+      resetBC.forEach(child => child.addEventListener('mousedown', startOpacity));
+      resetBC.forEach(child => child.addEventListener('touchstart', startOpacity));
+      resetBC.forEach(child => child.removeEventListener('mousedown', startFOpacity));
+      resetBC.forEach(child => child.removeEventListener('touchstart', startFOpacity));
     }
   } else {
     color = color;
   }
+
+  if (targetColor !== 'rainbow') {
+    resetBC.forEach(child => child.removeEventListener('mousemove', rainbowColor));
+    resetBC.forEach(child => child.removeEventListener('touchmove', rainbowColor));
+  }
 }
+
+function startOpacity() {
+  let resetBC = Array.from(document.querySelectorAll('.square'));
+  resetBC.forEach(child => child.addEventListener('mouseenter', addOpacity));
+  resetBC.forEach(child => child.addEventListener('touchstart', addOpacity));
+  resetBC.forEach(child => child.addEventListener('mouseup', stopOpacity));
+  resetBC.forEach(child => child.addEventListener('touchend', stopOpacity));
+}
+//star opacity drawing
+
+function stopOpacity() {
+  let resetBC = Array.from(document.querySelectorAll('.square'));
+  resetBC.forEach(child => child.removeEventListener('mouseenter', addOpacity));
+  resetBC.forEach(child => child.removeEventListener('touchstart', addOpacity));
+}
+//stop opacity drawing
  
 function addOpacity(e) {
   if (e.type === 'mouseenter') {
@@ -140,15 +151,23 @@ function addOpacity(e) {
     }
   }
 }
+//opacity start with 0 to 1
 
-function rainbowColor(e) {
-  let r = Math.floor(Math.random() * 100) + '%';
-  let g = Math.floor(Math.random() * 100) + '%';
-  let b = Math.floor(Math.random() * 100) + '%';
-  let rgb = [r, g, b].toString();
-  color = `rgb(${rgb})`;
-
+function startFOpacity() {
+  let resetBC = Array.from(document.querySelectorAll('.square'));
+  resetBC.forEach(child => child.addEventListener('mousemove', fullOpacity));
+  resetBC.forEach(child => child.addEventListener('touchstart', fullOpacity));
+  resetBC.forEach(child => child.addEventListener('mouseup', stopFOpacity));
+  resetBC.forEach(child => child.addEventListener('touchend', stopFOpacity));
 }
+// start drawing in full opacity
+
+function stopFOpacity() {
+  let resetBC = Array.from(document.querySelectorAll('.square'));
+  resetBC.forEach(child => child.removeEventListener('mousemove', fullOpacity));
+  resetBC.forEach(child => child.removeEventListener('touchstart', fullOpacity));
+}
+//stop drawing in full opacity
 
 function fullOpacity(e) {
   if (e.type === 'mousemove') {
@@ -161,6 +180,16 @@ function fullOpacity(e) {
        realTarget.style.opacity = null;
     }
   }
+}
+//the opacity value return to normal color
+
+function rainbowColor(e) {
+  let r = Math.floor(Math.random() * 100) + '%';
+  let g = Math.floor(Math.random() * 100) + '%';
+  let b = Math.floor(Math.random() * 100) + '%';
+  let rgb = [r, g, b].toString();
+  color = `rgb(${rgb})`;
+
 }
 
 function changeColor(e) {
